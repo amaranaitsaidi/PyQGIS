@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+#structure de fichier 
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.core import (QgsProcessing,
                        QgsFeatureSink,
@@ -19,38 +19,38 @@ class ExampleProcessingAlgorithm(QgsProcessingAlgorithm):
 
     
    
-
-    def tr(self, string):
+    
+    def tr(self, string):   # Gérer les caractères
         """
         Returns a translatable string with the self.tr() function.
         """
         return QCoreApplication.translate('Processing', string)
 
-    def createInstance(self):
+    def createInstance(self): # instance de notre algorithme
         return ExampleProcessingAlgorithm()
 
-    def name(self):
+    def name(self): # le nom qui va s'afficher dans la liste des scripts
        
-        return 'myscript'
+        return 'scriptg2m'
 
-    def displayName(self):
-        
-     
+    def displayName(self): # Le nom qui s'affiche dans la fenêtre 
+             
         return self.tr('My Script')
 
-    def group(self):
+    def group(self): # le nom du groupe ou on regroupe les scripts du même pour le même projet
        
-        return self.tr('Example scripts')
+        return self.tr('Goupe G2M')
 
-    def groupId(self):
+    def groupId(self): 
        
         return 'examplescripts'
 
-    def shortHelpString(self):
+    def shortHelpString(self): #description de l'outil  
        
         return self.tr("Example algorithm short description")
-
-    def initAlgorithm(self, config=None):
+    # ces deux fonction sont les plus importantes 
+    
+    def initAlgorithm(self, config=None): # définir les paramètres  
         
        
 
