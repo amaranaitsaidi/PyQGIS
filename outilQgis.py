@@ -8,6 +8,8 @@ from qgis.core import (QgsProcessing,
                        QgsProcessingAlgorithm,
                        QgsProcessingParameterString,
                        QgsProcessingParameterVectorLayer,
+                       QgsProcessingParameterField,
+                       QgsProcessingParameterExpression,
                        )
 from qgis import processing
 
@@ -21,6 +23,8 @@ class ExampleProcessingAlgorithm(QgsProcessingAlgorithm):
     # on définit nos variables avant les fonctions 
     texte= "texte"
     couche_input = "couche_input"
+    colonne ="colonne"
+    exp = "exp"
     
     def tr(self, string):
         
@@ -68,11 +72,22 @@ class ExampleProcessingAlgorithm(QgsProcessingAlgorithm):
             self.couche_input, #récupérer la variable définit plus haut 
             self.tr('Selectionner une couche')
         ))
+        
+        self.addParameter(QgsProcessingParameterField(
+            self.colonne, #récupérer la variable définit plus haut 
+            self.tr('Colonne choisie'),
+            parentLayerParameterName = "couche_input"
+        ))
+        self.addParameter(QgsProcessingParameterExpression(
+            self.exp, #récupérer la variable définit plus haut 
+            self.tr('exppression'),
+            parentLayerParameterName = "couche_input" # on laisse le paramètre pour récupérer dans champs de valeur
+        ))
       
 
         
-    def processAlgorithm(self, parameters, context, feedback):
-        # récupérer la valeur saisie par l'utilisateur
+    def processAlgorithm(self, parameters, context, feedback):   # récupérer la valeur saisie par l'utilisateur
+      
         saisie_utilisateur = self.parameterAsString(
             parameters, # nomenclature par défaut de qgis  
             self.texte, # on récupère la valeur du text
@@ -84,4 +99,10 @@ class ExampleProcessingAlgorithm(QgsProcessingAlgorithm):
             self.couche_input, # on récupère la valeur du text
             context
             )
+        expression = self.parameterAsExpression(
+            parameters, # nomenclature par défaut de qgis  
+            self.exp, # on récupère la valeur du text
+            context
+            )
+        print(expression)
        
